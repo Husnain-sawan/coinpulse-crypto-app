@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1225">
+  <meta name="description" content="A mobile-friendly cryptocurrency market tracker with live prices, charts, watchlists and market summaries.">
+  <title>CoinPulse — Crypto Market</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="CoinPulse home"><span class="brand-mark">₿</span><span>Coin<span class="accent">Pulse</span></span></a>
+      <div class="top-actions">
+        <button class="install-button" id="installBtn" aria-label="Install app" title="Install CoinPulse"><span class="install-symbol">↓</span><span>Install</span></button>
+        <button class="icon-button" id="globalBackBtn" hidden aria-label="Go back" title="Go back">←</button>
+        <button class="icon-button" id="refreshBtn" aria-label="Refresh prices" title="Refresh prices">↻</button>
+        <button class="icon-button" id="apiBtn" aria-label="API settings" title="CoinGecko API settings">⚙</button>
+        <button class="icon-button" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">◐</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-view="market">Explore</button>
+      <button class="tab" data-view="watchlist">Watchlist <span id="watchCount" class="tiny-count">0</span></button>
+      <button class="tab" data-view="insights">AI Insights</button>
+    </nav>
+
+    <main>
+      <section class="hero-card">
+        <div class="hero-top">
+          <div>
+            <p class="eyebrow">TOTAL CRYPTO MARKET SNAPSHOT</p>
+            <h1 id="marketTitle">Market overview</h1>
+          </div>
+          <span class="live-pill"><span class="live-dot"></span><span id="liveLabel">Connecting</span></span>
+        </div>
+        <div class="hero-metrics">
+          <div><span class="metric-label">Tracked coins</span><strong id="coinCount">—</strong></div>
+          <div><span class="metric-label">Market cap change (24h)</span><strong id="marketChange">—</strong></div>
+        </div>
+        <div class="hero-note" id="updatedAt">Fetching current market data…</div>
+      </section>
+
+      <section id="marketView" class="view active">
+        <div class="section-heading">
+          <div><p class="eyebrow">THE MARKET</p><h2>Cryptocurrencies</h2></div>
+          <select id="sortSelect" aria-label="Sort coins">
+            <option value="market_cap_desc">Market cap</option>
+            <option value="volume_desc">24h volume</option>
+            <option value="change_desc">Top gainers</option>
+            <option value="change_asc">Top losers</option>
+          </select>
+        </div>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search Bitcoin, Solana, ticker…" autocomplete="off"><button id="clearSearch" aria-label="Clear search" hidden>×</button></label>
+        <div class="filter-row"><span id="resultsLabel">Top coins by market cap</span><div class="filter-actions"><select id="currencySelect" aria-label="Display currency"><option value="usd">USD</option><option value="eur">EUR</option><option value="gbp">GBP</option><option value="pkr">PKR</option></select><button class="subtle-button" id="showAllBtn">Load more</button></div></div>
+        <div class="coin-table">
+          <div class="table-head"><span>ASSET</span><span>PRICE / 24H</span><span>WATCH</span></div>
+          <div id="coinList" class="coin-list"><div class="loading-state"><span class="spinner"></span>Loading market data…</div></div>
+        </div>
+        <p class="data-footnote">Prices are informational and may be delayed. Data availability depends on the public API and its rate limits.</p>
+      </section>
+
+      <section id="watchlistView" class="view">
+        <div class="section-heading"><div><p class="eyebrow">YOUR PERSONAL LIST</p><h2>Watchlist</h2></div></div>
+        <p class="section-copy">Your saved coins stay on this device. Tap the star beside any coin to add or remove it.</p>
+        <div id="watchList" class="coin-list"></div>
+      </section>
+
+      <section id="detailsView" class="view">
+        <button class="back-button" id="backToMarket">← Back to market</button>
+        <div id="coinDetail"></div>
+      </section>
+
+      <section id="insightsView" class="view">
+        <div class="section-heading"><div><p class="eyebrow">DATA-BASED OVERVIEW</p><h2>AI market summaries</h2></div></div>
+        <div class="insight-card">
+          <div class="insight-icon">✦</div>
+          <div><h3>Market briefing</h3><p>Generate a plain-language summary from the latest prices and 24-hour movements.</p></div>
+        </div>
+        <button class="primary-button" id="generateSummary">Generate market summary</button>
+        <div id="summaryOutput" class="summary-output"><p class="muted">A market summary will appear here. It is informational, not a prediction.</p></div>
+        <div class="disclaimer-card"><strong>Important</strong><p>This app tracks public market data. Summaries describe recent movements only; they do not predict future prices or recommend buying or selling.</p></div>
+      </section>
+    </main>
+
+    <footer class="bottom-nav">
+      <button class="bottom-link active" data-view="market"><span>⌂</span>Explore</button>
+      <button class="bottom-link" data-view="watchlist"><span>☆</span>Watchlist</button>
+      <button class="bottom-link" data-view="insights"><span>✦</span>Insights</button>
+    </footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
