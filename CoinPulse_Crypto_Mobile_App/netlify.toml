@@ -1,9 +1,3 @@
 [build]
-  publish = "."
-  functions = "netlify/functions"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+  publish = "CoinPulse_Crypto_Mobile_App"
+  functions = "CoinPulse_Crypto_Mobile_App/netlify/functions"
